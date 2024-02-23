@@ -1,6 +1,6 @@
 import { FC, useRef, useState } from 'react';
-import { useUserStore } from '../store';
 import { SendHorizontal } from 'lucide-react';
+import { useUserStore } from '../store';
 import { socket } from '../socket';
 import { Button } from './core/Button';
 

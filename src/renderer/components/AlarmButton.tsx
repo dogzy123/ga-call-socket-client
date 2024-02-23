@@ -11,7 +11,7 @@ const AlarmButton: FC = () => {
     setAlarmDisabled(true);
     setTimeout(() => {
       setAlarmDisabled(false);
-    }, 2000);
+    }, 2200);
   };
 
   return (

@@ -65,9 +65,9 @@ body {
 }
 
 .pop-out-in-left {
-  animation: anim-popoutin-left 1.5s ease-in-out;
+  animation: anim-popoutin-left 1.8s ease-in-out;
 }
 
 .pop-out-in-right {
-  animation: anim-popoutin-right 1.5s ease-in-out;
+  animation: anim-popoutin-right 1.8s ease-in-out;
 }

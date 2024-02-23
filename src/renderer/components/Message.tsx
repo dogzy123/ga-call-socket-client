@@ -6,7 +6,7 @@ import { formatIsoToLocal } from '../utils';
 export type MessageProps = {
   type: 'user' | 'system';
   author: string;
-  userName: string;
+  authorName: string;
   body: string;
   timestamp: string;
   media:
@@ -27,7 +27,7 @@ export type MessageProps = {
 // eslint-disable-next-line react/function-component-definition
 const Message: FC<MessageProps> = ({
   author,
-  userName,
+  authorName,
   body,
   timestamp,
   media = undefined,
@@ -45,7 +45,7 @@ const Message: FC<MessageProps> = ({
             {formattedDate}
           </span>
           <span className={clsx('font-bold', { 'text-[#ff8383]': !isSelf })}>
-            {userName}:
+            {authorName}:
           </span>
         </div>
       </div>

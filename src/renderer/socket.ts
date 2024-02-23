@@ -9,13 +9,13 @@ const wsUrl =
 
 let socket: Socket;
 
-function initializeSocket(name: string) {
+function initializeSocket(id: string) {
   socket = io(wsUrl, {
     autoConnect: false,
     reconnection: true,
     reconnectionAttempts: 3,
     query: {
-      username: name,
+      userId: id,
     },
   });
   return socket;

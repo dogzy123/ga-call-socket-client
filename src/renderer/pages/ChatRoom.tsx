@@ -5,45 +5,46 @@ import UserList from '../components/UserList';
 import ChatArea from '../components/ChatArea';
 import Message, { MessageProps } from '../components/Message';
 import useChatScroll from '../hooks/useChatScroll';
-import { useUserStore, UserData } from '../store';
 import { socket } from '../socket';
 import { SystemMessage } from '../components/SystemMessage';
 import { AlarmButton } from '../components/AlarmButton';
+import { server } from '../axios';
 
 // eslint-disable-next-line react/function-component-definition
 const ChatRoom: FC = () => {
   const [isRinging, setIsRinging] = useState(false);
   const [msgList, setMsgList] = useState<MessageProps[]>([]);
-  const setUserData = useUserStore((state) => state.setUserData);
   const chatRef = useChatScroll(msgList);
   const { play } = useAudio('http://34.88.50.142/static/ring.wav');
 
   useEffect(() => {
+    const getLastMessages = async () => {
+      try {
+        const { data } = await server.get('/api/last-messages');
+        setMsgList(data?.messages as MessageProps[]);
+      } catch (err) {
+        console.error(err);
+      }
+    };
+
     function handleReceiveCall() {
+      setIsRinging(true);
       window.electron.ipcRenderer.sendMessage('receive-call', []);
       play();
-      setIsRinging(true);
-      setTimeout(() => {
-        setIsRinging(false);
-      }, 2100);
     }
 
     function handleReceiveMsg(data: any) {
       setMsgList((prev) => [...prev, data as MessageProps]);
     }
 
-    function handleReceiveUser(data: any) {
-      setUserData(data as UserData);
-    }
+    getLastMessages();
 
     socket.on('receive-alarm', handleReceiveCall);
     socket.on('receive-msg', handleReceiveMsg);
-    socket.on('receive-user-data', handleReceiveUser);
 
     return () => {
       socket.off('receive-alarm', handleReceiveCall);
       socket.off('receive-msg', handleReceiveMsg);
-      socket.off('receive-user-data', handleReceiveUser);
       socket.disconnect();
     };
   }, []);
@@ -59,6 +60,7 @@ const ChatRoom: FC = () => {
         <span className="text-white text-9xl font-outline-2">Ring!</span>
       </div>
       <div
+        onAnimationEnd={() => setIsRinging(false)}
         className={clsx(
           'absolute pop-out-in-right top-[40%] left-[60%] rotate-[20deg] pointer-events-none select-none',
           { hidden: !isRinging },

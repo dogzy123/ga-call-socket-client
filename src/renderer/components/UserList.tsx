@@ -2,7 +2,6 @@ import { FC, useEffect, useState } from 'react';
 import { useUserStore, UserData } from '../store';
 import { socket } from '../socket';
 
-// eslint-disable-next-line react/function-component-definition
 const UserList: FC = () => {
   const [userList, setUserList] = useState<UserData[]>([]);
   const userId = useUserStore((state) => state.id);

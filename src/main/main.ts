@@ -10,6 +10,7 @@
  */
 import path from 'path';
 import { app, BrowserWindow, shell, ipcMain, Tray, Menu } from 'electron';
+import contextMenu from 'electron-context-menu';
 import { autoUpdater } from 'electron-updater';
 import log from 'electron-log';
 import { resolveHtmlPath } from './util';
@@ -22,6 +23,11 @@ class AppUpdater {
     autoUpdater.checkForUpdatesAndNotify();
   }
 }
+
+contextMenu({
+  showInspectElement: false,
+  showSearchWithGoogle: false,
+});
 
 let mainWindow: BrowserWindow | null = null;
 let isQuiting: boolean = false;
