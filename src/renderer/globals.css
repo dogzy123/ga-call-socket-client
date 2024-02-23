@@ -1,0 +1,73 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+body {
+  position: relative;
+  background: rgb(0,0,0);
+  background: linear-gradient(135deg, rgba(0,0,0,1) 0%, rgba(121,9,9,1) 75%);
+  font-family: "Roboto", sans-serif;
+  overflow-x: hidden;
+  margin: 0;
+  font-feature-settings: normal;
+}
+
+*, *::before, *::after {
+  font-family: "Roboto", sans-serif;
+  box-sizing: border-box;
+}
+
+
+@layer base {
+  .font-outline-2 {
+    -webkit-text-stroke: 3px black;
+  }
+}
+
+@keyframes anim-popoutin-left {
+  0% {
+    transform: scale(0) rotate(-15deg);
+    opacity: 0;
+  }
+  25% {
+    transform: scale(2) rotate(-15deg);
+    opacity: 1;
+  }
+  50% {
+    transform: scale(1) rotate(-15deg);
+    opacity: 1;
+  }
+  100% {
+    /* animate nothing to add pause at the end of animation */
+    transform: scale(1) rotate(-15deg);
+    opacity: 1;
+  }
+}
+
+@keyframes anim-popoutin-right {
+  0% {
+    transform: scale(0) rotate(20deg);
+    opacity: 0;
+  }
+  25% {
+    transform: scale(2) rotate(20deg);
+    opacity: 1;
+  }
+  50% {
+    transform: scale(1) rotate(20deg);
+    opacity: 1;
+  }
+  100% {
+    /* animate nothing to add pause at the end of animation */
+    transform: scale(1) rotate(20deg);
+    opacity: 1;
+  }
+}
+
+.pop-out-in-left {
+  animation: anim-popoutin-left 1.5s ease-in-out;
+}
+
+.pop-out-in-right {
+  animation: anim-popoutin-right 1.5s ease-in-out;
+}
