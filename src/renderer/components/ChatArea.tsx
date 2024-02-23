@@ -1,6 +1,8 @@
 import { FC, useRef, useState } from 'react';
 import { useUserStore } from '../store';
+import { SendHorizontal } from 'lucide-react';
 import { socket } from '../socket';
+import { Button } from './core/Button';
 
 const ChatArea: FC = () => {
   const [msgText, setMsgText] = useState<string>('');
@@ -42,12 +44,9 @@ const ChatArea: FC = () => {
             onKeyDown={handleEnterPress}
             onChange={handleMessage}
           />
-          <button
-            type="submit"
-            className="bg-red-700 w-[120px] uppercase rounded-md text-white font-semibold"
-          >
-            send
-          </button>
+          <Button type="submit" className="w-[120px] rounded-none">
+            <SendHorizontal size={32} />
+          </Button>
         </div>
       </form>
     </div>

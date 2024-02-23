@@ -6,7 +6,6 @@ type SystemMessageProps = {
   timestamp: string;
 };
 
-// eslint-disable-next-line react/function-component-definition
 const SystemMessage: FC<SystemMessageProps> = ({ body, timestamp }) => {
   const formattedDate = formatIsoToLocal(timestamp);
 
@@ -29,4 +28,4 @@ const SystemMessage: FC<SystemMessageProps> = ({ body, timestamp }) => {
   );
 };
 
-export default SystemMessage;
+export { SystemMessage };

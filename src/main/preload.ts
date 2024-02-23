@@ -4,12 +4,10 @@ import { contextBridge, ipcRenderer, IpcRendererEvent } from 'electron';
 import { getValue, setValue } from './settings';
 
 export type Channels =
-  | 'ipc-example'
   | 'send-call'
   | 'receive-call'
   | 'save-user-name'
   | 'load-user-name';
-
 
 const electronHandler = {
   ipcRenderer: {

@@ -2,9 +2,10 @@ import { FC, useState, ChangeEvent, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import clsx from 'clsx';
 import { PuffLoader } from 'react-spinners';
-import { useUserStore } from '../store';
+import { UserData, useUserStore } from '../store';
 // eslint-disable-next-line import/named
 import { initializeSocket } from '../socket';
+import { Button } from '../components/core/Button';
 
 const settings = window.settings;
 
@@ -14,6 +15,11 @@ const ConnectPage: FC = () => {
   const [isLoading, setIsLoading] = useState<boolean>(false);
 
   const setName = useUserStore((state) => state.setName);
+  const setUserData = useUserStore((state) => state.setUserData);
+
+  function handleReceiveUser(data: any) {
+    setUserData(data as UserData);
+  }
 
   const handleConnect = async (e: any) => {
     e.preventDefault();
@@ -36,11 +42,34 @@ const ConnectPage: FC = () => {
       name: nickName,
     });
 
-    initializeSocket(nickName);
-    setTimeout(() => {
+    const socket = initializeSocket(nickName);
+
+    // try to socket connect if error then show error message
+    socket.connect();
+
+    // redirect to chatroom after 2 seconds
+    socket.on('connect', () => {
+      setTimeout(() => {
+        setIsLoading(false);
+        navigate('/chatroom');
+      }, 2000);
+    });
+
+    // redirect to home if disconnected
+    socket.on('disconnect', () => {
+      navigate('/');
+    });
+
+    socket.on('receive-user-data', handleReceiveUser);
+
+    socket.io.on('reconnect_failed', () => {
+      setIsLoading(false);
+    });
+
+    socket.io.on('reconnect', () => {
       setIsLoading(false);
       navigate('/chatroom');
-    }, 2000);
+    });
   };
 
   const handleUserNameChange = (e: ChangeEvent<HTMLInputElement>) => {
@@ -74,15 +103,9 @@ const ConnectPage: FC = () => {
                 onChange={handleUserNameChange}
               />
             </div>
-            <button
-              disabled={isLoading}
-              className={clsx(
-                'w-full py-3 mt-4 bg-red-700 rounded-md text-white font-semibold',
-              )}
-              type="submit"
-            >
+            <Button className="mt-4 py-3" disabled={isLoading} type="submit">
               Connect
-            </button>
+            </Button>
           </form>
           {isLoading && (
             <div className="w-full flex justify-center mt-4">

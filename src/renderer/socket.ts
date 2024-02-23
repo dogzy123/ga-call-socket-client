@@ -12,6 +12,8 @@ let socket: Socket;
 function initializeSocket(name: string) {
   socket = io(wsUrl, {
     autoConnect: false,
+    reconnection: true,
+    reconnectionAttempts: 3,
     query: {
       username: name,
     },

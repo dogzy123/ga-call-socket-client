@@ -7,28 +7,18 @@ import Message, { MessageProps } from '../components/Message';
 import useChatScroll from '../hooks/useChatScroll';
 import { useUserStore, UserData } from '../store';
 import { socket } from '../socket';
-import SystemMessage from '../components/SystemMessage';
+import { SystemMessage } from '../components/SystemMessage';
+import { AlarmButton } from '../components/AlarmButton';
 
 // eslint-disable-next-line react/function-component-definition
 const ChatRoom: FC = () => {
   const [isRinging, setIsRinging] = useState(false);
-  const [alarmDisabled, setAlarmDisabled] = useState(false);
   const [msgList, setMsgList] = useState<MessageProps[]>([]);
   const setUserData = useUserStore((state) => state.setUserData);
   const chatRef = useChatScroll(msgList);
   const { play } = useAudio('http://34.88.50.142/static/ring.wav');
 
-  const handleAlarm = () => {
-    socket.emit('send-alarm');
-    setAlarmDisabled(true);
-    setTimeout(() => {
-      setAlarmDisabled(false);
-    }, 2000);
-  };
-
   useEffect(() => {
-    socket.connect();
-
     function handleReceiveCall() {
       window.electron.ipcRenderer.sendMessage('receive-call', []);
       play();
@@ -86,16 +76,7 @@ const ChatRoom: FC = () => {
               <div>
                 <h3 className="text-white">Chat room</h3>
               </div>
-              <button
-                type="button"
-                disabled={alarmDisabled}
-                onClick={handleAlarm}
-                className={clsx(
-                  'ml-auto py-2 px-4 bg-red-700 hover:bg-red-600 disabled:bg-gray-800 rounded-md text-white font-semibold',
-                )}
-              >
-                Alarm
-              </button>
+              <AlarmButton />
             </div>
           </div>
           <div

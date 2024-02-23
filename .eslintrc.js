@@ -5,10 +5,13 @@ module.exports = {
     // A temporary hack related to IDE not resolving correct package.json
     'import/no-extraneous-dependencies': 'off',
     'react/react-in-jsx-scope': 'off',
+    'react/require-default-props': 'off',
     'react/jsx-filename-extension': 'off',
+    'react/function-component-definition': 'off',
     'import/extensions': 'off',
     'import/no-unresolved': 'off',
     'import/no-import-module-exports': 'off',
+    'import/prefer-default-export': 'off',
     'no-shadow': 'off',
     '@typescript-eslint/no-shadow': 'error',
     'no-unused-vars': 'off',
