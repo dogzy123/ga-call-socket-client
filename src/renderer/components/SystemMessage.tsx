@@ -13,12 +13,10 @@ const SystemMessage: FC<SystemMessageProps> = ({ body, timestamp }) => {
     <div className="flex">
       <div className="flex items-start">
         <div className="flex items-center">
-          <span className="text-xs text-[#858585] min-w-[120px]">
+          <span className="text-xs text-[#858585] min-w-[115px]">
             {formattedDate}
           </span>
-          <span className="text-xs text-[#858585] mr-1">
-            System notification:
-          </span>
+          <span className="text-xs text-[#858585] mr-1">System:</span>
           <span className="text-xs text-[#858585] text-pretty whitespace-normal break-words break-all">
             {body}
           </span>

@@ -4,6 +4,9 @@ import { contextBridge, ipcRenderer, IpcRendererEvent } from 'electron';
 import { getValue, setValue } from './settings';
 
 export type Channels =
+  | 'manualMinimize'
+  | 'manualMaximize'
+  | 'manualExit'
   | 'send-call'
   | 'receive-call'
   | 'save-user-name'

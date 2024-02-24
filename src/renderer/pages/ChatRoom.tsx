@@ -50,14 +50,16 @@ const ChatRoom: FC = () => {
   }, []);
 
   return (
-    <div className="h-[100vh]">
+    <div style={{ height: 'calc(100vh - 28px)' }}>
       <div
         className={clsx(
           'absolute pop-out-in-left top-[30%] left-[30%] -rotate-[15deg] pointer-events-none select-none',
           { hidden: !isRinging },
         )}
       >
-        <span className="text-white text-9xl font-outline-2">Ring!</span>
+        <span className="text-white text-9xl font-bold font-outline-2">
+          Ring!
+        </span>
       </div>
       <div
         onAnimationEnd={() => setIsRinging(false)}
@@ -66,13 +68,15 @@ const ChatRoom: FC = () => {
           { hidden: !isRinging },
         )}
       >
-        <span className="text-white text-9xl font-outline-2">Ring!</span>
+        <span className="text-white text-9xl font-bold font-outline-2">
+          Ring!
+        </span>
       </div>
       <div className="flex flex-row h-full">
-        <div className="basis-1/4 p-4 bg-[#441111]">
+        <div className="max-w-[285px] w-full p-4 bg-[#441111]">
           <UserList />
         </div>
-        <div className="basis-3/4 flex flex-col">
+        <div className="w-full flex flex-col">
           <div className="min-h-[60px] h-[60px] px-8 py-2 border-[2px] border-[#581818] border-t-0 border-r-0 bg-[#441111]">
             <div className="flex items-center h-full">
               <div>

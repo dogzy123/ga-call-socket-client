@@ -39,7 +39,7 @@ const ChatArea: FC = () => {
           <textarea
             rows={2}
             ref={textareaRef}
-            className="p-2 resize-none w-full outline-none bg-transparent focus:bg-[#3a1212] hover:bg-[#3a1212] text-white"
+            className="p-2 resize-none w-full placeholder:select-none placeholder:text-[#7a4646] outline-none bg-transparent focus:bg-[#3a1212] hover:bg-[#3a1212] text-white"
             placeholder="Type something here..."
             onKeyDown={handleEnterPress}
             onChange={handleMessage}

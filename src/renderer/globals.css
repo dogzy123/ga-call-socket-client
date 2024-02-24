@@ -12,6 +12,10 @@ body {
   font-feature-settings: normal;
 }
 
+#title-bar {
+  -webkit-app-region: drag;
+}
+
 *, *::before, *::after {
   font-family: "Roboto", sans-serif;
   box-sizing: border-box;
@@ -70,4 +74,28 @@ body {
 
 .pop-out-in-right {
   animation: anim-popoutin-right 1.8s ease-in-out;
+}
+
+::-webkit-scrollbar {
+  width: 5px;
+  height: 5px
+}
+
+body::-webkit-scrollbar,html::-webkit-scrollbar {
+  width: 10px;
+  height: 10px;
+  background-color: transparent;
+}
+
+::-webkit-scrollbar-track {
+  background: transparent
+}
+
+::-webkit-scrollbar-thumb {
+  border-radius: 10px;
+  background-color: #393939;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #555
 }

@@ -27,6 +27,7 @@ class AppUpdater {
 contextMenu({
   showInspectElement: false,
   showSearchWithGoogle: false,
+  showSelectAll: false,
 });
 
 let mainWindow: BrowserWindow | null = null;
@@ -41,6 +42,24 @@ const RESOURCES_PATH = app.isPackaged
 const getAssetPath = (...paths: string[]): string => {
   return path.join(RESOURCES_PATH, ...paths);
 };
+
+ipcMain.on('manualMinimize', () => {
+  mainWindow?.minimize();
+});
+
+let maximizeToggle = false;
+ipcMain.on('manualMaximize', () => {
+  if (maximizeToggle) {
+    mainWindow?.unmaximize();
+  } else {
+    mainWindow?.maximize();
+  }
+  maximizeToggle = !maximizeToggle;
+});
+
+ipcMain.on('manualExit', () => {
+  mainWindow?.close();
+});
 
 ipcMain.on('receive-call', async () => {
   mainWindow?.show();
@@ -99,9 +118,12 @@ const createWindow = async () => {
     show: false,
     width: 1200,
     height: 800,
+    minWidth: 900,
+    minHeight: 600,
     center: true,
     fullscreenable: false,
     autoHideMenuBar: true,
+    frame: false,
     icon: getAssetPath('icon.png'),
     webPreferences: {
       contextIsolation: true,
@@ -111,8 +133,8 @@ const createWindow = async () => {
         : path.join(__dirname, '../../.erb/dll/preload.js'),
     },
   });
-  Menu.setApplicationMenu(null);
 
+  Menu.setApplicationMenu(null);
   mainWindow.loadURL(resolveHtmlPath('index.html'));
 
   mainWindow.on('ready-to-show', () => {
@@ -171,6 +193,8 @@ app.on('window-all-closed', () => {
 app.on('before-quit', () => {
   isQuiting = true;
 });
+
+app.setAppUserModelId('local.garena.alarm');
 
 app
   .whenReady()

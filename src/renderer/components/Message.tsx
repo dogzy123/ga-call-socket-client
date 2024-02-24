@@ -41,16 +41,18 @@ const Message: FC<MessageProps> = ({
     <div className="flex">
       <div className="flex items-start">
         <div className="flex items-center">
-          <span className="text-xs text-[#858585] min-w-[120px]">
+          <span className="text-xs text-[#858585] min-w-[115px]">
             {formattedDate}
           </span>
-          <span className={clsx('font-bold', { 'text-[#ff8383]': !isSelf })}>
+          <span
+            className={clsx('font-bold text-sm', { 'text-[#ff8383]': !isSelf })}
+          >
             {authorName}:
           </span>
         </div>
       </div>
-      <div className="ml-2">
-        <span className="text-pretty whitespace-normal break-words break-all">
+      <div className="flex flex-col ml-2">
+        <span className="text-pretty text-sm whitespace-normal break-words break-all">
           {body}
         </span>
         {media && (

@@ -17,7 +17,7 @@ const Button: FC<ButtonProps> = ({
       disabled={disabled}
       className={twMerge(
         clsx(
-          'flex flex-row justify-center items-center gap-2',
+          'flex flex-row justify-center items-center gap-2 select-none',
           'w-full py-2 bg-red-700 rounded-md text-white font-semibold transition ease-in',
           'disabled:bg-[#891a1a] disabled:cursor-not-allowed disabled:text-[#a76a6a] hover:bg-red-600',
         ),

@@ -100,7 +100,7 @@ const ConnectPage: FC = () => {
   }, []);
 
   return (
-    <div className="h-[100vh]">
+    <div style={{ height: 'calc(100vh - 28px)' }}>
       <div className="flex justify-center items-center">
         <div className="w-1/2 px-8 py-4 mt-48 rounded-xl border-[2px] border-red-700 bg-red-800">
           <form onSubmit={handleConnect}>
@@ -124,7 +124,9 @@ const ConnectPage: FC = () => {
           </form>
           <div className="mt-2">
             <Link to="/signup">
-              <span className="text-sm text-white hover:underline">Sign up</span>
+              <span className="text-sm text-white hover:underline">
+                Sign up
+              </span>
             </Link>
           </div>
           {error && (
