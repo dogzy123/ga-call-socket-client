@@ -4,6 +4,7 @@ export type UserData = {
   id: string;
   name: string;
   email: string;
+  socketId: string;
 };
 
 type UserInfoStore = UserData & {
@@ -20,11 +21,12 @@ const useUserStore = create<UserInfoStore>((set) => ({
   id: '',
   name: '',
   email: '',
+  socketId: '',
   setName: (name: string) => {
     set({ name });
   },
-  setUserData: ({ id, name, email }) => {
-    set({ id, name, email });
+  setUserData: ({ id, name, email, socketId }) => {
+    set({ id, name, email, socketId });
   },
 }));
 

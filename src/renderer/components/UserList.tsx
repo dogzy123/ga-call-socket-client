@@ -30,7 +30,15 @@ const UserList: FC = () => {
     <div className="flex flex-col">
       <UserCard userName={userName} isOnline />
       {onlineUsers.map((user) => {
-        return <UserCard key={user.id} userId={user.id} userName={user.name} isOnline />;
+        return (
+          <UserCard
+            key={user.id}
+            userId={user.id}
+            userName={user.name}
+            socketId={user.socketId}
+            isOnline
+          />
+        );
       })}
       {offlineUsers.map((user) => {
         return <UserCard key={user.id} userName={user.name} />;
