@@ -1,18 +1,18 @@
-import { FC, useState } from 'react';
+import { FC } from 'react';
 import { BellRing } from 'lucide-react';
 import { Button } from './core/Button';
 import { socket } from '../socket';
-import { useUserStore } from '../store';
+import { useAlarmStore, useUserStore } from '../store';
 
 const AlarmButton: FC = () => {
-  const [alarmDisabled, setAlarmDisabled] = useState(false);
+  const { isDisabled, setIsDisabled } = useAlarmStore((state) => state);
   const name = useUserStore((state) => state.name);
 
   const handleAlarm = () => {
     socket.emit('send-alarm', { name });
-    setAlarmDisabled(true);
+    setIsDisabled(true);
     setTimeout(() => {
-      setAlarmDisabled(false);
+      setIsDisabled(false);
     }, 2200);
   };
 
@@ -20,7 +20,7 @@ const AlarmButton: FC = () => {
     <Button
       type="button"
       className="ml-auto w-[150px]"
-      disabled={alarmDisabled}
+      disabled={isDisabled}
       onClick={handleAlarm}
     >
       <BellRing size={16} />

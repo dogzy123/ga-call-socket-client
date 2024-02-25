@@ -6,12 +6,17 @@ export type UserData = {
   email: string;
 };
 
-type UserInfo = UserData & {
+type UserInfoStore = UserData & {
   setName: (name: string) => void;
   setUserData: ({ id, name, email }: UserData) => void;
 };
 
-const useUserStore = create<UserInfo>((set) => ({
+type AlarmStore = {
+  isDisabled: boolean;
+  setIsDisabled: (isDisabled: boolean) => void;
+};
+
+const useUserStore = create<UserInfoStore>((set) => ({
   id: '',
   name: '',
   email: '',
@@ -23,4 +28,11 @@ const useUserStore = create<UserInfo>((set) => ({
   },
 }));
 
-export { useUserStore };
+const useAlarmStore = create<AlarmStore>((set) => ({
+  isDisabled: false,
+  setIsDisabled: (isDisabled: boolean) => {
+    set({ isDisabled });
+  },
+}));
+
+export { useUserStore, useAlarmStore };

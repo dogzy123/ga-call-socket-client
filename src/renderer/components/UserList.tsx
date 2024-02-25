@@ -1,6 +1,7 @@
 import { FC, useEffect, useState } from 'react';
 import { useUserStore, UserData } from '../store';
 import { socket } from '../socket';
+import { UserCard } from './UserCard';
 
 const UserList: FC = () => {
   const [onlineUsers, setOnlineUsers] = useState<UserData[]>([]);
@@ -16,6 +17,7 @@ const UserList: FC = () => {
         'receive-users',
         (data: { online: UserData[]; offline: UserData[] }) => {
           const { online, offline } = data;
+          console.log(online, offline);
           const newUsers = online.filter((user) => user.id !== userId);
           setOnlineUsers(newUsers);
           setOfflineUsers(offline);
@@ -24,35 +26,14 @@ const UserList: FC = () => {
     }
   }, [userId]);
 
-  useEffect(() => {
-    // make socket.emit('get-users') every 10 seconds
-    const interval = setInterval(() => {
-      socket.emit('get-users');
-    }, 10000);
-    return () => clearInterval(interval);
-  }, []);
-
   return (
-    <div className="flex flex-col gap-2">
-      <div className="flex items-center gap-2">
-        <span className="h-2 w-2 bg-green-500 rounded-full" />
-        <span className="text-white">{userName}</span>
-      </div>
+    <div className="flex flex-col">
+      <UserCard userName={userName} isOnline />
       {onlineUsers.map((user) => {
-        return (
-          <div key={user.id} className="flex items-center gap-2">
-            <span className="h-2 w-2 bg-green-500 rounded-full" />
-            <span className="text-white">{user.name}</span>
-          </div>
-        );
+        return <UserCard key={user.id} userId={user.id} userName={user.name} isOnline />;
       })}
       {offlineUsers.map((user) => {
-        return (
-          <div key={user.id} className="flex items-center gap-2">
-            <span className="h-2 w-2 bg-gray-500 rounded-full" />
-            <span className="text-[#919191]">{user.name}</span>
-          </div>
-        );
+        return <UserCard key={user.id} userName={user.name} />;
       })}
     </div>
   );

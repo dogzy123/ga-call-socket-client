@@ -9,6 +9,7 @@ export type Channels =
   | 'manualExit'
   | 'send-call'
   | 'receive-call'
+  | 'receive-msg'
   | 'save-user-name'
   | 'load-user-name';
 

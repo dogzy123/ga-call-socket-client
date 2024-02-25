@@ -29,13 +29,22 @@ const Navbar = () => {
         </span>
       </div>
       <div className="flex items-center h-full text-white">
-        <button onClick={handleMinimize} className="flex items-center bg-transparent px-2 h-full cursor-pointer hover:bg-gray-700">
+        <button
+          onClick={handleMinimize}
+          className="flex items-center bg-transparent px-2 h-full cursor-pointer hover:bg-gray-700 focus:outline-none"
+        >
           <FontAwesomeIcon icon={faMinus} size="sm" />
         </button>
-        <button onClick={handleMaximize} className="flex items-center bg-transparent px-2 h-full cursor-pointer hover:bg-gray-700">
+        <button
+          onClick={handleMaximize}
+          className="flex items-center bg-transparent px-2 h-full cursor-pointer hover:bg-gray-700 focus:outline-none"
+        >
           <FontAwesomeIcon icon={faSquare} size="sm" />
         </button>
-        <button onClick={handleExit} className="flex items-center bg-transparent px-2 h-full cursor-pointer hover:bg-red-600">
+        <button
+          onClick={handleExit}
+          className="flex items-center bg-transparent px-2 h-full cursor-pointer hover:bg-red-600 focus:outline-none"
+        >
           <FontAwesomeIcon icon={faXmark} size="1x" />
         </button>
       </div>

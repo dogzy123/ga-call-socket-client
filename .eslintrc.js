@@ -7,6 +7,7 @@ module.exports = {
     'react/react-in-jsx-scope': 'off',
     'react/require-default-props': 'off',
     'react/jsx-filename-extension': 'off',
+    'react/jsx-props-no-spreading': 'off',
     'react/function-component-definition': 'off',
     'import/extensions': 'off',
     'import/no-unresolved': 'off',
@@ -15,6 +16,7 @@ module.exports = {
     'no-shadow': 'off',
     '@typescript-eslint/no-shadow': 'error',
     'no-unused-vars': 'off',
+    'no-underscore-dangle': 'off',
     '@typescript-eslint/no-unused-vars': 'error',
   },
   parserOptions: {

@@ -4,6 +4,7 @@ import { useUserStore } from '../store';
 import { formatIsoToLocal } from '../utils';
 
 export type MessageProps = {
+  _id: string;
   type: 'user' | 'system';
   author: string;
   authorName: string;
@@ -38,7 +39,7 @@ const Message: FC<MessageProps> = ({
   const formattedDate = formatIsoToLocal(timestamp);
 
   return (
-    <div className="flex">
+    <div className="flex pr-6 hover:bg-[rgba(0,0,0,0.2)]">
       <div className="flex items-start">
         <div className="flex items-center">
           <span className="text-xs text-[#858585] min-w-[115px]">
@@ -51,12 +52,13 @@ const Message: FC<MessageProps> = ({
           </span>
         </div>
       </div>
-      <div className="flex flex-col ml-2">
-        <span className="text-pretty text-sm whitespace-normal break-words break-all">
-          {body}
-        </span>
+      <div
+        style={{ wordWrap: 'break-word' }}
+        className="flex flex-col ml-2 indent-0 whitespace-break-spaces overflow-hidden"
+      >
+        <span className="text-sm indent-0">{body}</span>
         {media && (
-          <div className="flex flex-col gap-2 bg-[#280e0e] p-4 w-[400px] border-[1px] border-[#521515] rounded-md">
+          <div className="flex flex-col gap-2 bg-[#581818] p-4 w-[400px] border-[1px] border-[#521515] rounded-md">
             <a
               className="underline"
               href={media.url}

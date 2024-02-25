@@ -67,16 +67,25 @@ ipcMain.on('receive-call', async () => {
   mainWindow?.flashFrame(true);
   mainWindow?.setAlwaysOnTop(true);
 
-  const currentPos = mainWindow?.getPosition() || [0, 0];
   // make window shake to get user's attention with 10 shakes in 100ms
-  for (let i = 0; i < 7; i++) {
-    mainWindow?.setPosition(currentPos[0] + 10, currentPos[1]);
-    await new Promise((resolve) => setTimeout(resolve, 150));
-    mainWindow?.setPosition(currentPos[0] - 10, currentPos[1]);
-    await new Promise((resolve) => setTimeout(resolve, 150));
-    if (i === 6) {
+  for (let i = 0; i < 5; i++) {
+    await changeWinPos(() => {
+      const currentPos = mainWindow?.getPosition() || [0, 0];
+      mainWindow?.setPosition(currentPos[0] + 10, currentPos[1]);
+    }, 100);
+    await changeWinPos(() => {
+      const currentPos = mainWindow?.getPosition() || [0, 0];
+      mainWindow?.setPosition(currentPos[0] - 10, currentPos[1]);
+    }, 100);
+    if (i === 4) {
       mainWindow?.setAlwaysOnTop(false);
     }
+  }
+});
+
+ipcMain.on('receive-msg', () => {
+  if (!mainWindow?.isFocused()) {
+    mainWindow?.flashFrame(true);
   }
 });
 
@@ -95,6 +104,15 @@ const isDebug =
 if (isDebug) {
   require('electron-debug')();
 }
+
+const changeWinPos = (cb: () => void, ms: number) => {
+  return new Promise((resolve) => {
+    setTimeout(() => {
+      cb();
+      resolve(null);
+    }, ms);
+  });
+};
 
 const installExtensions = async () => {
   const installer = require('electron-devtools-installer');
@@ -124,6 +142,7 @@ const createWindow = async () => {
     fullscreenable: false,
     autoHideMenuBar: true,
     frame: false,
+    backgroundColor: '#220505',
     icon: getAssetPath('icon.png'),
     webPreferences: {
       contextIsolation: true,
@@ -154,7 +173,7 @@ const createWindow = async () => {
 
   mainWindow.on('minimize', (event: any) => {
     event.preventDefault();
-    mainWindow?.hide();
+    mainWindow?.minimize();
   });
 
   mainWindow.on('close', (event: any) => {
