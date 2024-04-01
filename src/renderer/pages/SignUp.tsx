@@ -37,6 +37,14 @@ const SignUp: FC = () => {
       errors.push('Username cannot contain spaces');
     }
 
+    if (password.length < 6) {
+      errors.push('Password must be at least 6 characters long');
+    }
+
+    if (password.includes(' ')) {
+      errors.push('Password cannot contain spaces');
+    }
+
     if (password !== confirmPassword) {
       errors.push('Passwords do not match');
     }

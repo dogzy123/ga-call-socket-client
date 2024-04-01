@@ -2,7 +2,7 @@ import { io, Socket } from 'socket.io-client';
 
 const wsUrl =
   process.env.NODE_ENV === 'production'
-    ? 'ws://34.88.50.142'
+    ? 'ws://35.228.239.86'
     : 'ws://localhost:65080';
 
 // const wsUrl = 'ws://localhost:65080';

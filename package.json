@@ -185,6 +185,8 @@
   },
   "build": {
     "productName": "Garena Alarm",
+    "buildVersion": "1.0.9-b.1",
+    "copyright": "Copyright © 2024 Garena Alarm",
     "appId": "local.garena.alarm",
     "asar": true,
     "asarUnpack": "**\\*.{node,dll}",

@@ -31,6 +31,10 @@ const ConnectPage: FC = () => {
       return;
     }
 
+    if (!password || password.length === 0 || password === '') {
+      return;
+    }
+
     const nickName = userName.trim().replace(/\s+/g, '-');
     setName(nickName);
 
