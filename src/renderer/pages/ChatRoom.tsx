@@ -9,13 +9,14 @@ import { socket } from '../socket';
 import { SystemMessage } from '../components/SystemMessage';
 import { AlarmButton } from '../components/AlarmButton';
 import { server } from '../axios';
+import { MAIN_URL } from '../config';
 
 // eslint-disable-next-line react/function-component-definition
 const ChatRoom: FC = () => {
   const [isRinging, setIsRinging] = useState(false);
   const [msgList, setMsgList] = useState<MessageProps[]>([]);
   const chatRef = useChatScroll(msgList);
-  const { play } = useAudio('http://34.88.50.142/static/ring.wav');
+  const { play } = useAudio(`${MAIN_URL}/static/ring.wav`);
 
   useEffect(() => {
     const getLastMessages = async () => {

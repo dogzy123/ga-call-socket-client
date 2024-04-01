@@ -1,16 +1,10 @@
 import { io, Socket } from 'socket.io-client';
-
-const wsUrl =
-  process.env.NODE_ENV === 'production'
-    ? 'ws://35.228.239.86'
-    : 'ws://localhost:65080';
-
-// const wsUrl = 'ws://localhost:65080';
+import { WS_URL } from './config';
 
 let socket: Socket;
 
 function initializeSocket(id: string) {
-  socket = io(wsUrl, {
+  socket = io(WS_URL, {
     autoConnect: false,
     reconnection: true,
     reconnectionAttempts: 3,
